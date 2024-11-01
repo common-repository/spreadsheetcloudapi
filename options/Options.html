@@ -1,0 +1,46 @@
+<div class="wrap">
+    <h1> <?php echo esc_html( $options_header ); ?> </h1>
+    <br />
+    <form class="autorization_manager" enctype="multipart/form-data" method="post" action="<?php echo $options_action; ?>"  <?php echo $options_style; ?>>
+        <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y" />
+        <div class="options-manager">
+            <?php echo sanitize_text_field( $options_API_key ); ?> 
+            <input type="text" class="api-key-field" name="<?php echo sanitize_text_field( $API_key_field_name ); ?>" value="<?php echo sanitize_text_field( $opt_api_key ); ?>" /><br />
+            <input type="submit" class="update-options button" name="Submit" value="<?php echo $options_update; ?>" disabled="disabled" />
+        </div>
+        <div class="options-manager-description">
+            The API key is used to initialize your application within the SpreadsheetCloudAPI service.
+        </div>
+        <div <?php echo $file_manager_style; ?>>
+        <hr />
+        <div class="file-manager">
+            <input class="my-file-operation" type="hidden" name="my-file-operation" value="" />
+            <span class="file-manager-header">SpreadsheetCloudAPI Service file manager</span><br />
+            <?php echo $service_file_list; ?><br />
+            <input class="file-input-text" type="file" name="my-file-upload">
+            <input class="file-manager-button upload-button button" type="button" value="<?php echo Sclapi_File_Operations::UPLOAD; ?>" />
+            <input class="file-manager-button download-button button" type="button" value="<?php echo Sclapi_File_Operations::DOWNLOAD; ?>" disabled="disabled" />
+            <input class="file-manager-button rename-button button" type="button" value="<?php echo Sclapi_File_Operations::RENAME; ?>" disabled="disabled" />
+            <input class="file-manager-button delete-button button" type="button"  value="<?php echo Sclapi_File_Operations::DELETE; ?>" disabled="disabled" />
+            <dialog class="renamedialog">
+                <label class="exist-text">File with this name already exists.</label><br />
+                <input class="file-new-name" type="text" name="newfilename">
+                <button class="closedg">Rename</button>
+                <button class="canceldg">Cancel</button>
+            </dialog>
+        </div>
+        <div class="file-manager-description">
+            File manager lists all files that correspond to the API key above. The maximum file size is limited by 10 MB. The maximum storage size (all files for all applications per one SpreadsheetCloudAPI account) is limited by 100 MB.
+        </div>
+        </div>
+    </form>
+    <form class="startingwizzard"  enctype="multipart/form-data" method="post" action="<?php echo $options_action; ?>"  <?php echo $wizard_style; ?>>
+        <div class="wizard-description">
+            SpreadsheetCloudAPI(link) uses an API key-based mechanism to identify applications. Either select "Use an existing API key" if you have an active SpreadsheetCloudAPI API key or select “Generate a new API key” to create a new SpreadsheetCloudAPI account for your e-mail and generate an API key within this account. In case of a new account, SpreadsheetCloudAPI will send you an e-mail with generated login and password for authorization within the service web interface.
+        </div><Br><Br><Br>
+        <input type="radio" name="user-choise" value="haveapikey"> Use an existing API key<Br>
+        <input type="radio" name="user-choise" value="generate"> Generate a new API key<Br><Br>
+        <input type="submit" class="get-new-api-key button" name="<?php echo Sclapi_Plugin_Const::GET_NEW_API_KEY; ?>" value="Next >>" />
+    </form>
+    <?php echo $download_file; ?>
+</div>
